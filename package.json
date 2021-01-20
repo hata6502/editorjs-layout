@@ -1,0 +1,65 @@
+{
+  "name": "editor-js-grid",
+  "version": "0.0.0",
+  "description": "Grid block for Editor.js. ",
+  "keywords": [
+    "codex editor",
+    "editor.js",
+    "editorjs",
+    "grid",
+    "tool"
+  ],
+  "homepage": "https://b-hood.site/",
+  "bugs": {
+    "url": "https://github.com/blue-hood/editor-js-grid/issues"
+  },
+  "repository": "https://github.com/blue-hood/editor-js-grid",
+  "license": "MIT",
+  "author": "Hood <hato6502@gmail.com> (https://github.com/blue-hood)",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "rimraf dist && webpack --config webpack.prod.js",
+    "dev": "rimraf dist && webpack --config webpack.dev.js",
+    "eslint": "eslint '**/*.{js,jsx,ts,tsx}'",
+    "fix": "yarn eslint --fix && yarn stylelint --fix && yarn prettier --write",
+    "generate-disclaimer": "yarn licenses generate-disclaimer --ignore-platform > DISCLAIMER.md",
+    "license-checker": "license-checker --excludePackages 'bin-links@1.1.7;bin-links@1.1.8;cli-table@0.3.1;cyclist@0.2.2;optimist@0.6.1;trim@0.0.1' --onlyAllow 'Apache 2.0;Apache-2.0;Artistic-2.0;BSD;BSD-2-Clause;BSD-3-Clause;CC0-1.0;CC-BY-3.0;CC-BY-4.0;ISC;MIT;Unlicense' --unknown",
+    "prettier": "prettier '**/*.{html,json,md,yml}'",
+    "stylelint": "stylelint '**/*.css'",
+    "test": "tsc --noEmit && yarn eslint && yarn stylelint && yarn prettier --check && yarn license-checker"
+  },
+  "dependencies": {
+    "@editorjs/editorjs": "^2.16.1",
+    "ionicons": "^5.0.1"
+  },
+  "devDependencies": {
+    "@types/vfile-message": "^2.0.0",
+    "@typescript-eslint/eslint-plugin": "^2.14.0",
+    "@typescript-eslint/parser": "^2.14.0",
+    "css-loader": "^3.4.2",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-config-prettier": "^6.9.0",
+    "eslint-import-resolver-webpack": "^0.12.1",
+    "eslint-plugin-import": "^2.19.1",
+    "eslint-plugin-prettier": "^3.1.2",
+    "license-checker": "^25.0.1",
+    "prettier": "^1.19.1",
+    "raw-loader": "^4.0.0",
+    "rimraf": "^3.0.2",
+    "semantic-release": "^17.0.4",
+    "style-loader": "^1.1.3",
+    "stylelint": "^13.2.0",
+    "stylelint-config-prettier": "^8.0.1",
+    "stylelint-config-standard": "^20.0.0",
+    "stylelint-prettier": "^1.1.2",
+    "ts-loader": "^6.2.1",
+    "typescript": "^3.7.4",
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10",
+    "webpack-merge": "^4.2.2"
+  },
+  "resolutions": {
+    "minimist": "^1.2.2"
+  }
+}
