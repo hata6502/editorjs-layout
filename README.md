@@ -1,3 +1,4 @@
+Work in progress
 <h1 align="center">Welcome to editor-js-grid 👋</h1>
 
 ![npm](https://img.shields.io/npm/v/editor-js-grid)
