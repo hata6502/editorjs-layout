@@ -39,11 +39,11 @@ See type declaration of [LayoutBlockToolConfig](https://github.com/hata6502/edit
 
 ## Output data
 
-See type declaration of [ValidatedLayoutBlockData](https://github.com/hata6502/editorjs-layout/blob/main/src/LayoutBlockTool.ts).
+See type declaration of [ValidatedLayoutBlockToolData](https://github.com/hata6502/editorjs-layout/blob/main/src/LayoutBlockTool.ts).
 
 ## Copied data
 
-See type declaration of [SavedLayoutBlockData](https://github.com/hata6502/editorjs-layout/blob/main/src/LayoutBlockTool.ts).
+See type declaration of [SavedLayoutBlockToolData](https://github.com/hata6502/editorjs-layout/blob/main/src/LayoutBlockTool.ts).
 
 NOTE:
 Copied block data by `ctrl+c` are not [validated](https://editorjs.io/blockapi#methods).

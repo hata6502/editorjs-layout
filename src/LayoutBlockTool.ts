@@ -14,15 +14,15 @@ import type {
 
 interface LayoutBlockToolConfig {
   disableLayoutEditing: boolean;
-  initialData: ValidatedLayoutBlockData;
+  initialData: ValidatedLayoutBlockToolData;
 }
 
-interface SavedLayoutBlockData {
+interface SavedLayoutBlockToolData {
   itemContent: SavedLayoutBlockItemContentData;
   layout: SavedLayoutBlockContainerData;
 }
 
-interface ValidatedLayoutBlockData extends SavedLayoutBlockData {
+interface ValidatedLayoutBlockToolData extends SavedLayoutBlockToolData {
   itemContent: ValidatedLayoutBlockItemContentData;
   layout: ValidatedLayoutBlockContainerData;
 }
@@ -53,7 +53,10 @@ class LayoutBlockTool implements BlockTool {
     api,
     config,
     data,
-  }: BlockToolConstructorOptions<SavedLayoutBlockData, LayoutBlockToolConfig>) {
+  }: BlockToolConstructorOptions<
+    SavedLayoutBlockToolData,
+    LayoutBlockToolConfig
+  >) {
     this.#api = api;
     this.#wrapper = document.createElement("div");
 
@@ -80,15 +83,15 @@ class LayoutBlockTool implements BlockTool {
     return this.#wrapper;
   }
 
-  save(): SavedLayoutBlockData {
+  save(): SavedLayoutBlockToolData {
     return {
       itemContent: this.#itemContent,
       layout: this.#layout,
     };
   }
 
-  validate(data: SavedLayoutBlockData) {
-    const compatibilityCheck: ValidatedLayoutBlockData = data;
+  validate(data: SavedLayoutBlockToolData) {
+    const compatibilityCheck: ValidatedLayoutBlockToolData = data;
 
     return true;
   }
@@ -103,6 +106,6 @@ class LayoutBlockTool implements BlockTool {
 export { LayoutBlockTool };
 export type {
   LayoutBlockToolConfig,
-  SavedLayoutBlockData,
-  ValidatedLayoutBlockData,
+  SavedLayoutBlockToolData,
+  ValidatedLayoutBlockToolData,
 };

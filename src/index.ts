@@ -1,8 +1,8 @@
 export { LayoutBlockTool } from "./LayoutBlockTool";
 export type {
   LayoutBlockToolConfig,
-  SavedLayoutBlockData,
-  ValidatedLayoutBlockData,
+  SavedLayoutBlockToolData,
+  ValidatedLayoutBlockToolData,
 } from "./LayoutBlockTool";
 export type {
   SavedLayoutBlockContainerData,
