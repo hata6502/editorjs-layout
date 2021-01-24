@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>editorjs-layout</title>
+  </head>
+
+  <body>
+    <div id="editorjs"></div>
+    <button id="button" type="button">Save</button>
+    <div id="output-data"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
+
+    <script src="../dist/index.js"></script>
+
+    <script>
+      const data = {
+        blocks: [
+          // TODO: prepare
+        ],
+      };
+
+      const editorJS = new EditorJS({
+        data,
+        tools: {
+          layout: {
+            class: EditorJSLayout.LayoutBlockTool,
+            config: {},
+          },
+        },
+      });
+
+      document.querySelector("#button").addEventListener("click", async () => {
+        const outputData = await editorJS.save();
+
+        document.querySelector("#output-data").textContent = JSON.stringify(
+          outputData
+        );
+      });
+    </script>
+  </body>
+</html>

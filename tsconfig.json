@@ -10,6 +10,6 @@
     "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
-    "target": "ES5"
+    "target": "ES2015"
   }
 }
