@@ -1,3 +1,5 @@
+<!-- markdownlint-disable first-line-h1 -->
+
 Work in progress
 
 <h1 align="center">Welcome to editorjs-layout 👋</h1>
@@ -25,12 +27,12 @@ TODO: demo html url here!
 ## Config params
 
 TODO:
-See type declaration of [???]().
+See type declaration of [???](https://github.com/hata6502/editorjs-layout/blob/main/src/???.ts).
 
 ## Output data
 
 TODO:
-See type declaration of [???]().
+See type declaration of [???](https://github.com/hata6502/editorjs-layout/blob/main/src/???.ts).
 
 ## Author
 
