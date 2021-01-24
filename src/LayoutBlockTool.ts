@@ -1,8 +1,8 @@
-import type EditorJSClass from "@editorjs/editorjs";
+import type EditorJS from "@editorjs/editorjs";
 import type {
-  API,
   BlockTool,
   BlockToolConstructorOptions,
+  EditorConfig,
 } from "@editorjs/editorjs";
 import { renderContainer } from "./container";
 import type {
@@ -15,22 +15,31 @@ import type {
 } from "./itemContent";
 
 interface LayoutBlockToolConfig {
-  EditorJS: typeof EditorJSClass;
-  disableLayoutEditing: boolean;
+  EditorJS: typeof EditorJS;
+  editorJSConfig: Omit<
+    EditorConfig,
+    "holder" | "data" | "minHeight" | "readOnly"
+  >;
+  enableLayoutEditing: boolean;
+  enableLayoutSaving: boolean;
   initialData: ValidatedLayoutBlockToolData;
 }
 
 interface LayoutBlockToolData {
   itemContent: LayoutBlockItemContentData;
-  layout: LayoutBlockContainerData;
+  layout?: LayoutBlockContainerData;
 }
 
 interface ValidatedLayoutBlockToolData extends LayoutBlockToolData {
   itemContent: ValidatedLayoutBlockItemContentData;
-  layout: ValidatedLayoutBlockContainerData;
+  layout?: ValidatedLayoutBlockContainerData;
 }
 
 class LayoutBlockTool implements BlockTool {
+  static get shortcut() {
+    return "CMD+L";
+  }
+
   static get toolbox() {
     return {
       icon: `
@@ -45,7 +54,6 @@ class LayoutBlockTool implements BlockTool {
     };
   }
 
-  #api: API;
   #config!: LayoutBlockToolConfig;
   #wrapper: HTMLDivElement;
 
@@ -53,11 +61,9 @@ class LayoutBlockTool implements BlockTool {
   #layout: LayoutBlockContainerData;
 
   constructor({
-    api,
     config,
     data,
   }: BlockToolConstructorOptions<LayoutBlockToolData, LayoutBlockToolConfig>) {
-    this.#api = api;
     this.#wrapper = document.createElement("div");
 
     this.#itemContent = {};
@@ -72,20 +78,23 @@ class LayoutBlockTool implements BlockTool {
 
     // Filter undefined and empty object.
     // See also: https://github.com/codex-team/editor.js/issues/1432
-    if (config && "disableLayoutEditing" in config) {
+    if (config && "EditorJS" in config) {
       this.#config = config;
+      this.#itemContent = config.initialData.itemContent;
 
-      const initialData = config.initialData;
-
-      this.#itemContent = initialData.itemContent;
-      this.#layout = initialData.layout;
+      if (config.initialData.layout) {
+        this.#layout = config.initialData.layout;
+      }
     }
 
     // Filter undefined and empty object.
     // See also: https://github.com/codex-team/editor.js/issues/1432
     if (data && "itemContent" in data) {
       this.#itemContent = data.itemContent;
-      this.#layout = data.layout;
+
+      if (data.layout) {
+        this.#layout = data.layout;
+      }
     }
   }
 
@@ -98,7 +107,7 @@ class LayoutBlockTool implements BlockTool {
   save(): LayoutBlockToolData {
     return {
       itemContent: this.#itemContent,
-      layout: this.#layout,
+      layout: this.#config.enableLayoutSaving ? this.#layout : undefined,
     };
   }
 
@@ -133,6 +142,7 @@ class LayoutBlockTool implements BlockTool {
       renderContainer({
         EditorJS: this.#config.EditorJS,
         data: this.#layout,
+        editorJSConfig: this.#config.editorJSConfig,
         itemContentData: this.#itemContent,
       })
     );

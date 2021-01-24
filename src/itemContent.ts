@@ -1,6 +1,6 @@
-import type EditorJSClass from "@editorjs/editorjs";
 import type { OutputData } from "@editorjs/editorjs";
 import { v4 as uuidv4 } from "uuid";
+import type { LayoutBlockToolConfig } from "./LayoutBlockTool";
 
 interface LayoutBlockItemContentData {
   [index: string]: Pick<OutputData, "blocks"> | undefined;
@@ -12,17 +12,24 @@ interface ValidatedLayoutBlockItemContentData
 const renderItemContent = ({
   EditorJS,
   data,
+  editorJSConfig,
 }: {
-  EditorJS: typeof EditorJSClass;
+  EditorJS: LayoutBlockToolConfig["EditorJS"];
   data: Pick<OutputData, "blocks">;
+  editorJSConfig: LayoutBlockToolConfig["editorJSConfig"];
 }) => {
   const editorJSHolderID = uuidv4();
   const wrapper = document.createElement("div");
 
   wrapper.id = editorJSHolderID;
+  wrapper.style.cursor = "pointer";
 
-  // TODO: bind editorJSConfig
+  wrapper.addEventListener("click", () => {
+    // TODO: open modal
+  });
+
   new EditorJS({
+    ...editorJSConfig,
     holder: editorJSHolderID,
     data,
     minHeight: 0,

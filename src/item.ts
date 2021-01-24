@@ -1,4 +1,4 @@
-import type EditorJSClass from "@editorjs/editorjs";
+import type { LayoutBlockToolConfig } from "./LayoutBlockTool";
 import { renderItemContent } from "./itemContent";
 import type { LayoutBlockItemContentData } from "./itemContent";
 
@@ -15,10 +15,12 @@ interface ValidatedLayoutBlockItemData extends LayoutBlockItemData {}
 const renderItem = ({
   EditorJS,
   data,
+  editorJSConfig,
   itemContentData,
 }: {
-  EditorJS: typeof EditorJSClass;
+  EditorJS: LayoutBlockToolConfig["EditorJS"];
   data: LayoutBlockItemData;
+  editorJSConfig: LayoutBlockToolConfig["editorJSConfig"];
   itemContentData: LayoutBlockItemContentData;
 }) => {
   const wrapper = document.createElement("div");
@@ -29,7 +31,9 @@ const renderItem = ({
 
   const editorJSData = itemContentData[data.itemContentId] ?? { blocks: [] };
 
-  wrapper.append(renderItemContent({ EditorJS, data: editorJSData }));
+  wrapper.append(
+    renderItemContent({ EditorJS, data: editorJSData, editorJSConfig })
+  );
 
   return wrapper;
 };
