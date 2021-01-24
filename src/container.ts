@@ -1,25 +1,18 @@
-import type {
-  SavedLayoutBlockItemData,
-  ValidatedLayoutBlockItemData,
-} from "./item";
+import type { LayoutBlockItemData, ValidatedLayoutBlockItemData } from "./item";
 
-interface SavedLayoutBlockContainerData {
+interface LayoutBlockContainerData {
   type: "container";
   id: Element["id"];
   className: Element["className"];
   style: string;
-  children: (SavedLayoutBlockContainerData | SavedLayoutBlockItemData)[];
+  children: (LayoutBlockContainerData | LayoutBlockItemData)[];
 }
 
-interface ValidatedLayoutBlockContainerData
-  extends SavedLayoutBlockContainerData {
+interface ValidatedLayoutBlockContainerData extends LayoutBlockContainerData {
   children: (
     | ValidatedLayoutBlockContainerData
     | ValidatedLayoutBlockItemData
   )[];
 }
 
-export type {
-  SavedLayoutBlockContainerData,
-  ValidatedLayoutBlockContainerData,
-};
+export type { LayoutBlockContainerData, ValidatedLayoutBlockContainerData };

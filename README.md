@@ -43,7 +43,7 @@ See type declaration of [ValidatedLayoutBlockToolData](https://github.com/hata65
 
 ## Copied data
 
-See type declaration of [SavedLayoutBlockToolData](https://github.com/hata6502/editorjs-layout/blob/main/src/LayoutBlockTool.ts).
+See type declaration of [LayoutBlockToolData](https://github.com/hata6502/editorjs-layout/blob/main/src/LayoutBlockTool.ts).
 
 NOTE:
 Copied block data by `ctrl+c` are not [validated](https://editorjs.io/blockapi#methods).

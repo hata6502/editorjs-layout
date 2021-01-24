@@ -1,4 +1,4 @@
-interface SavedLayoutBlockItemData {
+interface LayoutBlockItemData {
   type: "item";
   id: Element["id"];
   className: Element["className"];
@@ -6,6 +6,6 @@ interface SavedLayoutBlockItemData {
   itemContentId: string;
 }
 
-interface ValidatedLayoutBlockItemData extends SavedLayoutBlockItemData {}
+interface ValidatedLayoutBlockItemData extends LayoutBlockItemData {}
 
-export type { SavedLayoutBlockItemData, ValidatedLayoutBlockItemData };
+export type { LayoutBlockItemData, ValidatedLayoutBlockItemData };

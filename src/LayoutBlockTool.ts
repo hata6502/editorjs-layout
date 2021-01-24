@@ -4,11 +4,11 @@ import type {
   BlockToolConstructorOptions,
 } from "@editorjs/editorjs";
 import type {
-  SavedLayoutBlockContainerData,
+  LayoutBlockContainerData,
   ValidatedLayoutBlockContainerData,
 } from "./container";
 import type {
-  SavedLayoutBlockItemContentData,
+  LayoutBlockItemContentData,
   ValidatedLayoutBlockItemContentData,
 } from "./itemContent";
 
@@ -17,12 +17,12 @@ interface LayoutBlockToolConfig {
   initialData: ValidatedLayoutBlockToolData;
 }
 
-interface SavedLayoutBlockToolData {
-  itemContent: SavedLayoutBlockItemContentData;
-  layout: SavedLayoutBlockContainerData;
+interface LayoutBlockToolData {
+  itemContent: LayoutBlockItemContentData;
+  layout: LayoutBlockContainerData;
 }
 
-interface ValidatedLayoutBlockToolData extends SavedLayoutBlockToolData {
+interface ValidatedLayoutBlockToolData extends LayoutBlockToolData {
   itemContent: ValidatedLayoutBlockItemContentData;
   layout: ValidatedLayoutBlockContainerData;
 }
@@ -46,24 +46,36 @@ class LayoutBlockTool implements BlockTool {
   #config!: LayoutBlockToolConfig;
   #wrapper: HTMLDivElement;
 
-  #itemContent: SavedLayoutBlockItemContentData;
-  #layout: SavedLayoutBlockContainerData;
+  #itemContent: LayoutBlockItemContentData;
+  #layout: LayoutBlockContainerData;
 
   constructor({
     api,
     config,
     data,
-  }: BlockToolConstructorOptions<
-    SavedLayoutBlockToolData,
-    LayoutBlockToolConfig
-  >) {
+  }: BlockToolConstructorOptions<LayoutBlockToolData, LayoutBlockToolConfig>) {
     this.#api = api;
     this.#wrapper = document.createElement("div");
+
+    this.#itemContent = {};
+
+    this.#layout = {
+      type: "container",
+      id: "",
+      className: "",
+      style: "",
+      children: [],
+    };
 
     // Filter undefined and empty object.
     // See also: https://github.com/codex-team/editor.js/issues/1432
     if (config && "disableLayoutEditing" in config) {
       this.#config = config;
+
+      const initialData = config.initialData;
+
+      this.#itemContent = initialData.itemContent;
+      this.#layout = initialData.layout;
     }
 
     // Filter undefined and empty object.
@@ -71,9 +83,6 @@ class LayoutBlockTool implements BlockTool {
     if (data && "itemContent" in data) {
       this.#itemContent = data.itemContent;
       this.#layout = data.layout;
-    } else {
-      this.#itemContent = {};
-      this.#layout = {};
     }
   }
 
@@ -83,20 +92,34 @@ class LayoutBlockTool implements BlockTool {
     return this.#wrapper;
   }
 
-  save(): SavedLayoutBlockToolData {
+  save(): LayoutBlockToolData {
     return {
       itemContent: this.#itemContent,
       layout: this.#layout,
     };
   }
 
-  validate(data: SavedLayoutBlockToolData) {
+  validate(data: LayoutBlockToolData) {
     const compatibilityCheck: ValidatedLayoutBlockToolData = data;
 
     return true;
   }
 
-  dispatchData() {
+  dispatchData({
+    itemContent,
+    layout,
+  }: {
+    itemContent?: LayoutBlockItemContentData;
+    layout?: LayoutBlockContainerData;
+  }) {
+    if (itemContent) {
+      this.#itemContent = itemContent;
+    }
+
+    if (layout) {
+      this.#layout = layout;
+    }
+
     this.renderWrapper();
   }
 
@@ -106,6 +129,6 @@ class LayoutBlockTool implements BlockTool {
 export { LayoutBlockTool };
 export type {
   LayoutBlockToolConfig,
-  SavedLayoutBlockToolData,
+  LayoutBlockToolData,
   ValidatedLayoutBlockToolData,
 };

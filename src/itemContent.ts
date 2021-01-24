@@ -1,13 +1,10 @@
 import type { OutputData } from "@editorjs/editorjs";
 
-interface SavedLayoutBlockItemContentData {
+interface LayoutBlockItemContentData {
   [index: string]: OutputData;
 }
 
 interface ValidatedLayoutBlockItemContentData
-  extends SavedLayoutBlockItemContentData {}
+  extends LayoutBlockItemContentData {}
 
-export type {
-  SavedLayoutBlockItemContentData,
-  ValidatedLayoutBlockItemContentData,
-};
+export type { LayoutBlockItemContentData, ValidatedLayoutBlockItemContentData };

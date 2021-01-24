@@ -1,18 +1,15 @@
 export { LayoutBlockTool } from "./LayoutBlockTool";
 export type {
   LayoutBlockToolConfig,
-  SavedLayoutBlockToolData,
+  LayoutBlockToolData,
   ValidatedLayoutBlockToolData,
 } from "./LayoutBlockTool";
 export type {
-  SavedLayoutBlockContainerData,
+  LayoutBlockContainerData,
   ValidatedLayoutBlockContainerData,
 } from "./container";
+export type { LayoutBlockItemData, ValidatedLayoutBlockItemData } from "./item";
 export type {
-  SavedLayoutBlockItemData,
-  ValidatedLayoutBlockItemData,
-} from "./item";
-export type {
-  SavedLayoutBlockItemContentData,
+  LayoutBlockItemContentData,
   ValidatedLayoutBlockItemContentData,
 } from "./itemContent";
