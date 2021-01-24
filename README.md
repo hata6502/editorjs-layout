@@ -35,13 +35,20 @@ TODO: demo html url here!
 
 ## Config params
 
-TODO:
-See type declaration of [???](https://github.com/hata6502/editorjs-layout/blob/main/src/???.ts).
+See type declaration of [LayoutBlockToolConfig](https://github.com/hata6502/editorjs-layout/blob/main/src/LayoutBlockTool.ts).
 
 ## Output data
 
-TODO:
-See type declaration of [???](https://github.com/hata6502/editorjs-layout/blob/main/src/???.ts).
+See type declaration of [ValidatedLayoutBlockData](https://github.com/hata6502/editorjs-layout/blob/main/src/LayoutBlockTool.ts).
+
+## Copied data
+
+See type declaration of [SavedLayoutBlockData](https://github.com/hata6502/editorjs-layout/blob/main/src/LayoutBlockTool.ts).
+
+NOTE:
+Copied block data by `ctrl+c` are not [validated](https://editorjs.io/blockapi#methods).
+So copied block data and output block data may be different.
+See also [this comment](https://github.com/codex-team/editor.js/issues/1280#issuecomment-706482368).
 
 ## Author
 
