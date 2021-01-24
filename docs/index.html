@@ -17,16 +17,61 @@
     <script>
       const data = {
         blocks: [
-          // TODO: prepare
+          {
+            type: "layout",
+            data: {
+              itemContent: {
+                "demo-data-item-content": {
+                  blocks: [
+                    {
+                      type: "paragraph",
+                      data: {
+                        text: "demo data item content",
+                      },
+                    },
+                  ],
+                },
+              },
+              layout: {
+                type: "container",
+                id: "demo-data-container",
+                className: "demo-data-container",
+                style: "border: 1px solid #000000; padding: 16px; ",
+                children: [
+                  {
+                    type: "item",
+                    id: "demo-data-item",
+                    className: "demo-data-item",
+                    style: "border: 1px solid #000000; ",
+                    itemContentId: "demo-data-item-content",
+                  },
+                ],
+              },
+            },
+          },
         ],
       };
 
       const editorJS = new EditorJS({
         data,
         tools: {
+          // TODO: add other config patterns
           layout: {
             class: EditorJSLayout.LayoutBlockTool,
-            config: {},
+            config: {
+              EditorJS,
+              disableLayoutEditing: false,
+              initialData: {
+                itemContent: {},
+                layout: {
+                  type: "container",
+                  id: "",
+                  className: "",
+                  style: "",
+                  children: [],
+                },
+              },
+            },
           },
         },
       });

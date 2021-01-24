@@ -1,8 +1,10 @@
+import type EditorJSClass from "@editorjs/editorjs";
 import type {
   API,
   BlockTool,
   BlockToolConstructorOptions,
 } from "@editorjs/editorjs";
+import { renderContainer } from "./container";
 import type {
   LayoutBlockContainerData,
   ValidatedLayoutBlockContainerData,
@@ -13,6 +15,7 @@ import type {
 } from "./itemContent";
 
 interface LayoutBlockToolConfig {
+  EditorJS: typeof EditorJSClass;
   disableLayoutEditing: boolean;
   initialData: ValidatedLayoutBlockToolData;
 }
@@ -123,7 +126,17 @@ class LayoutBlockTool implements BlockTool {
     this.renderWrapper();
   }
 
-  renderWrapper() {}
+  renderWrapper() {
+    this.#wrapper.innerHTML = "";
+
+    this.#wrapper.append(
+      renderContainer({
+        EditorJS: this.#config.EditorJS,
+        data: this.#layout,
+        itemContentData: this.#itemContent,
+      })
+    );
+  }
 }
 
 export { LayoutBlockTool };

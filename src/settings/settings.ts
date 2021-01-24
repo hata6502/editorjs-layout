@@ -1,4 +1,4 @@
-import { API } from "@editorjs/editorjs";
+/*import { API } from "@editorjs/editorjs";
 import addCubeOutline from "./add-cube-outline.svg";
 import addDocumentOutline from "./add-document-outline.svg";
 import addOutline from "./add-outline.svg";
@@ -564,3 +564,4 @@ export const toggleSettingsDisplay = (
     settings.classList.add(styles.settingsTop);
   }
 };
+*/

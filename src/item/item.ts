@@ -1,4 +1,4 @@
-import { API } from "@editorjs/editorjs";
+/*import { API } from "@editorjs/editorjs";
 import styles from "./item.css";
 import { GridConfig } from "../Grid";
 import { moveToNext, moveToPrev } from "../move";
@@ -145,3 +145,4 @@ export const saveItem = async (
     type: "item",
   };
 };
+*/

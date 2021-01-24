@@ -1,4 +1,4 @@
-import { API } from "@editorjs/editorjs";
+/*import { API } from "@editorjs/editorjs";
 import styles from "./container.css";
 import { GridConfig } from "../Grid";
 import { createItem, ItemData, saveItem } from "../item";
@@ -290,3 +290,4 @@ export const saveContainer = async (
     type: "container",
   };
 };
+*/
