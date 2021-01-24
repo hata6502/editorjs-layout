@@ -17,11 +17,9 @@ Work in progress
 
 > Layout block tool for Editor.js.
 
-## Demo
+### ✨ [Demo](https://hata6502.github.io/editorjs-layout/)
 
-![Demo](https://user-images.githubusercontent.com/7702653/77813863-6c9dd880-70ef-11ea-80da-9c5f74d2053f.gif)
-
-TODO: demo html here!
+![demo](https://user-images.githubusercontent.com/7702653/77813863-6c9dd880-70ef-11ea-80da-9c5f74d2053f.gif)
 
 ## Install
 
@@ -31,24 +29,24 @@ yarn add editorjs-layout
 
 ## Usage
 
-TODO: demo html url here!
+Please see [demo HTML](https://github.com/hata6502/editorjs-layout/blob/main/docs/index.html).
 
 ## Config params
 
-See type declaration of [LayoutBlockToolConfig](https://github.com/hata6502/editorjs-layout/blob/main/src/LayoutBlockTool.ts).
+Please see type declaration of [LayoutBlockToolConfig](https://github.com/hata6502/editorjs-layout/blob/main/src/LayoutBlockTool.ts).
 
 ## Output data
 
-See type declaration of [ValidatedLayoutBlockToolData](https://github.com/hata6502/editorjs-layout/blob/main/src/LayoutBlockTool.ts).
+Please see type declaration of [ValidatedLayoutBlockToolData](https://github.com/hata6502/editorjs-layout/blob/main/src/LayoutBlockTool.ts).
 
 ## Copied data
 
-See type declaration of [LayoutBlockToolData](https://github.com/hata6502/editorjs-layout/blob/main/src/LayoutBlockTool.ts).
+Please see type declaration of [LayoutBlockToolData](https://github.com/hata6502/editorjs-layout/blob/main/src/LayoutBlockTool.ts).
 
 NOTE:
 Copied block data by `ctrl+c` are not [validated](https://editorjs.io/blockapi#methods).
 So copied block data and output block data may be different.
-See also [this comment](https://github.com/codex-team/editor.js/issues/1280#issuecomment-706482368).
+Please see also [this comment](https://github.com/codex-team/editor.js/issues/1280#issuecomment-706482368).
 
 ## Author
 
