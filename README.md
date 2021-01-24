@@ -3,8 +3,17 @@
 Work in progress
 
 <h1 align="center">Welcome to editorjs-layout 👋</h1>
-
-TODO: badges here!
+<p>
+  <a href="https://www.npmjs.com/package/editorjs-layout" target="_blank">
+    <img alt="Version" src="https://img.shields.io/npm/v/editorjs-layout.svg">
+  </a>
+  <a href="https://github.com/hata6502/editorjs-layout/blob/main/LICENSE" target="_blank">
+    <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" />
+  </a>
+  <a href="https://twitter.com/hata6502" target="_blank">
+    <img alt="Twitter: hata6502" src="https://img.shields.io/twitter/follow/hata6502.svg?style=social" />
+  </a>
+</p>
 
 > Layout block tool for Editor.js.
 
