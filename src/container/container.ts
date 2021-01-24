@@ -1,39 +1,39 @@
-import { API } from '@editorjs/editorjs';
-import styles from './container.css';
-import { GridConfig } from '../Grid';
-import { createItem, ItemData, saveItem } from '../item';
-import { moveToNext, moveToPrev } from '../move';
-import { createContainerSettings, toggleSettingsDisplay } from '../settings';
+import { API } from "@editorjs/editorjs";
+import styles from "./container.css";
+import { GridConfig } from "../Grid";
+import { createItem, ItemData, saveItem } from "../item";
+import { moveToNext, moveToPrev } from "../move";
+import { createContainerSettings, toggleSettingsDisplay } from "../settings";
 
 export interface ContainerData extends CSSStyleDeclaration {
   children: Partial<ContainerData | ItemData>[];
-  type: 'container';
+  type: "container";
 }
 
 export const createContainer = (
   allSettings: readonly HTMLDivElement[],
   dispatchAllSettings: (action: HTMLDivElement) => void,
   api: API,
-  createItemContent: GridConfig['createItemContent'],
+  createItemContent: GridConfig["createItemContent"],
   readOnly: boolean,
   options?: {
     data?: Partial<ContainerData>;
   }
 ) => {
-  const container = document.createElement('div');
+  const container = document.createElement("div");
 
   container.classList.add(styles.container);
-  container.dataset.type = 'container';
+  container.dataset.type = "container";
 
-  container.style.alignContent = options?.data?.alignContent || 'normal';
-  container.style.alignItems = options?.data?.alignItems || 'normal';
-  container.style.alignSelf = options?.data?.alignSelf || 'auto';
-  container.style.flexBasis = options?.data?.flexBasis || 'auto';
-  container.style.flexDirection = options?.data?.flexDirection || 'row';
-  container.style.flexGrow = options?.data?.flexGrow || '0';
-  container.style.flexShrink = options?.data?.flexShrink || '1';
-  container.style.flexWrap = options?.data?.flexWrap || 'nowrap';
-  container.style.justifyContent = options?.data?.justifyContent || 'normal';
+  container.style.alignContent = options?.data?.alignContent || "normal";
+  container.style.alignItems = options?.data?.alignItems || "normal";
+  container.style.alignSelf = options?.data?.alignSelf || "auto";
+  container.style.flexBasis = options?.data?.flexBasis || "auto";
+  container.style.flexDirection = options?.data?.flexDirection || "row";
+  container.style.flexGrow = options?.data?.flexGrow || "0";
+  container.style.flexShrink = options?.data?.flexShrink || "1";
+  container.style.flexWrap = options?.data?.flexWrap || "nowrap";
+  container.style.justifyContent = options?.data?.justifyContent || "normal";
 
   const applyStyles = (extended: Partial<CSSStyleDeclaration>) => {
     const {
@@ -45,7 +45,7 @@ export const createContainer = (
       flexGrow,
       flexShrink,
       flexWrap,
-      justifyContent
+      justifyContent,
     } = container.style;
 
     const style: Partial<CSSStyleDeclaration> = {
@@ -58,20 +58,22 @@ export const createContainer = (
       flexGrow,
       flexShrink,
       flexWrap,
-      justifyContent
+      justifyContent,
     };
 
-    container.removeAttribute('style');
+    container.removeAttribute("style");
 
     Object.entries(style).forEach(([name, value]) => {
       if (value) {
-        container.style[name as keyof Omit<CSSStyleDeclaration, 'length' | 'parentRule'>] = value;
+        container.style[
+          name as keyof Omit<CSSStyleDeclaration, "length" | "parentRule">
+        ] = value;
       }
     });
 
     container.dataset.extended = Object.keys(extended)
-      .map(name => name.replace(/,/g, ''))
-      .join(',');
+      .map((name) => name.replace(/,/g, ""))
+      .join(",");
   };
 
   const extendedData: Partial<ContainerData> = { ...options?.data };
@@ -130,22 +132,35 @@ export const createContainer = (
       },
       onNewContainerClick: () => {
         container.appendChild(
-          createContainer(allSettings, dispatchAllSettings, api, createItemContent, readOnly, {
-            data: { children: [{ type: 'item' }] }
-          })
+          createContainer(
+            allSettings,
+            dispatchAllSettings,
+            api,
+            createItemContent,
+            readOnly,
+            {
+              data: { children: [{ type: "item" }] },
+            }
+          )
         );
       },
       onNewItemClick: () => {
         container.appendChild(
-          createItem(allSettings, dispatchAllSettings, api, createItemContent, readOnly)
+          createItem(
+            allSettings,
+            dispatchAllSettings,
+            api,
+            createItemContent,
+            readOnly
+          )
         );
       },
       onMoveToNextClick: () => moveToNext(container),
       onMoveToPrevClick: () => moveToPrev(container),
-      style: container.style
+      style: container.style,
     });
 
-    container.addEventListener('click', ({ clientX, clientY, target }) => {
+    container.addEventListener("click", ({ clientX, clientY, target }) => {
       if (target !== container) {
         return;
       }
@@ -155,14 +170,22 @@ export const createContainer = (
       const offsetX = clientX - rect.left;
       const offsetY = clientY - rect.top;
 
-      allSettings.forEach(allSetting => toggleSettingsDisplay(allSetting, false));
+      allSettings.forEach((allSetting) =>
+        toggleSettingsDisplay(allSetting, false)
+      );
       toggleSettingsDisplay(
         settings,
         [
-          { distance: Math.abs(offsetX), style: 'left' },
-          { distance: Math.abs(offsetX - container.clientWidth), style: 'right' },
-          { distance: Math.abs(offsetY), style: 'top' },
-          { distance: Math.abs(offsetY - container.clientHeight), style: 'bottom' }
+          { distance: Math.abs(offsetX), style: "left" },
+          {
+            distance: Math.abs(offsetX - container.clientWidth),
+            style: "right",
+          },
+          { distance: Math.abs(offsetY), style: "top" },
+          {
+            distance: Math.abs(offsetY - container.clientHeight),
+            style: "bottom",
+          },
         ].sort((a, b) => a.distance - b.distance)[0].style
       );
     });
@@ -172,16 +195,30 @@ export const createContainer = (
   }
 
   if (options?.data?.children) {
-    options.data.children.forEach(data => {
-      if (data.type === 'container') {
+    options.data.children.forEach((data) => {
+      if (data.type === "container") {
         container.appendChild(
-          createContainer(allSettings, dispatchAllSettings, api, createItemContent, readOnly, {
-            data
-          })
+          createContainer(
+            allSettings,
+            dispatchAllSettings,
+            api,
+            createItemContent,
+            readOnly,
+            {
+              data,
+            }
+          )
         );
-      } else if (data.type === 'item') {
+      } else if (data.type === "item") {
         container.appendChild(
-          createItem(allSettings, dispatchAllSettings, api, createItemContent, readOnly, { data })
+          createItem(
+            allSettings,
+            dispatchAllSettings,
+            api,
+            createItemContent,
+            readOnly,
+            { data }
+          )
         );
       }
     });
@@ -192,25 +229,28 @@ export const createContainer = (
 
 export const saveContainer = async (
   container: HTMLDivElement,
-  saveItemContent: GridConfig['saveItemContent']
+  saveItemContent: GridConfig["saveItemContent"]
 ): Promise<Partial<ContainerData>> => {
   const extended: Partial<CSSStyleDeclaration> = Object.fromEntries(
     container.dataset.extended
-      ?.split(',')
-      .map(name => [name, container.style[name as keyof CSSStyleDeclaration]]) || []
+      ?.split(",")
+      .map((name) => [
+        name,
+        container.style[name as keyof CSSStyleDeclaration],
+      ]) || []
   );
 
-  const childrenDataPromises: Promise<Partial<ContainerData | ItemData>>[] = Array.from(
-    container.children
-  )
+  const childrenDataPromises: Promise<
+    Partial<ContainerData | ItemData>
+  >[] = Array.from(container.children)
     .filter(
-      child =>
-        child.getAttribute('data-type') === 'container' ||
-        child.getAttribute('data-type') === 'item'
+      (child) =>
+        child.getAttribute("data-type") === "container" ||
+        child.getAttribute("data-type") === "item"
     )
     .map(
-      child =>
-        (child.getAttribute('data-type') === 'container' &&
+      (child) =>
+        (child.getAttribute("data-type") === "container" &&
           saveContainer(child as HTMLDivElement, saveItemContent)) ||
         saveItem(child as HTMLDivElement, saveItemContent)
     );
@@ -219,22 +259,34 @@ export const saveContainer = async (
 
   return {
     ...extended,
-    ...(container.style.alignContent !== 'normal' && {
-      alignContent: container.style.alignContent
+    ...(container.style.alignContent !== "normal" && {
+      alignContent: container.style.alignContent,
     }),
-    ...(container.style.alignItems !== 'normal' && { alignItems: container.style.alignItems }),
-    ...(container.style.alignSelf !== 'auto' && { alignSelf: container.style.alignSelf }),
-    ...(container.style.flexBasis !== 'auto' && { flexBasis: container.style.flexBasis }),
-    ...(container.style.flexDirection !== 'row' && {
-      flexDirection: container.style.flexDirection
+    ...(container.style.alignItems !== "normal" && {
+      alignItems: container.style.alignItems,
     }),
-    ...(container.style.flexGrow !== '0' && { flexGrow: container.style.flexGrow }),
-    ...(container.style.flexShrink !== '1' && { flexShrink: container.style.flexShrink }),
-    ...(container.style.flexWrap !== 'nowrap' && { flexWrap: container.style.flexWrap }),
-    ...(container.style.justifyContent !== 'normal' && {
-      justifyContent: container.style.justifyContent
+    ...(container.style.alignSelf !== "auto" && {
+      alignSelf: container.style.alignSelf,
+    }),
+    ...(container.style.flexBasis !== "auto" && {
+      flexBasis: container.style.flexBasis,
+    }),
+    ...(container.style.flexDirection !== "row" && {
+      flexDirection: container.style.flexDirection,
+    }),
+    ...(container.style.flexGrow !== "0" && {
+      flexGrow: container.style.flexGrow,
+    }),
+    ...(container.style.flexShrink !== "1" && {
+      flexShrink: container.style.flexShrink,
+    }),
+    ...(container.style.flexWrap !== "nowrap" && {
+      flexWrap: container.style.flexWrap,
+    }),
+    ...(container.style.justifyContent !== "normal" && {
+      justifyContent: container.style.justifyContent,
     }),
     ...(childrenData.length !== 0 && { children: childrenData }),
-    type: 'container'
+    type: "container",
   };
 };

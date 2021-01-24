@@ -1,6 +1,6 @@
 .preview,
-.preview [data-type='container'],
-.preview [data-type='item'] {
+.preview [data-type="container"],
+.preview [data-type="item"] {
   border-width: 0 !important;
   padding: 0 !important;
 }

@@ -1,9 +1,9 @@
-import { API, BlockTool, ToolSettings } from '@editorjs/editorjs';
-import styles from './Grid.css';
-import gridOutline from './grid-outline.svg';
-import { ContainerData, createContainer, saveContainer } from '../container';
-import { createItemContent, saveItemContent } from '../itemContent';
-import { toggleSettingsDisplay } from '../settings';
+import { API, BlockTool, ToolSettings } from "@editorjs/editorjs";
+import styles from "./Grid.css";
+import gridOutline from "./grid-outline.svg";
+import { ContainerData, createContainer, saveContainer } from "../container";
+import { createItemContent, saveItemContent } from "../itemContent";
+import { toggleSettingsDisplay } from "../settings";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface GridConfig<T = any> extends ToolSettings {
@@ -24,7 +24,7 @@ class Grid implements BlockTool {
   static get toolbox() {
     return {
       icon: gridOutline,
-      title: 'Grid'
+      title: "Grid",
     };
   }
 
@@ -39,7 +39,7 @@ class Grid implements BlockTool {
   constructor({
     api,
     config,
-    data
+    data,
   }: {
     api: API;
     config?: Partial<GridConfig>;
@@ -51,9 +51,9 @@ class Grid implements BlockTool {
     // @ts-ignore
     this.config = {
       createItemContent: config?.createItemContent || createItemContent,
-      initialData: config?.initialData || { children: [{ type: 'item' }] },
+      initialData: config?.initialData || { children: [{ type: "item" }] },
       readOnly: config?.readOnly || false,
-      saveItemContent: config?.saveItemContent || saveItemContent
+      saveItemContent: config?.saveItemContent || saveItemContent,
     };
 
     this.container = createContainer(
@@ -63,7 +63,10 @@ class Grid implements BlockTool {
       this.config.createItemContent,
       this.config.readOnly,
       {
-        data: ((!data || Object.keys(data).length === 0) && this.config.initialData) || data
+        data:
+          ((!data || Object.keys(data).length === 0) &&
+            this.config.initialData) ||
+          data,
       }
     );
   }
@@ -79,23 +82,25 @@ class Grid implements BlockTool {
       const handleFocusChange = () => {
         // Check selection in order to type.
         const isFocused =
-          block.classList.contains('ce-block--focused') ||
+          block.classList.contains("ce-block--focused") ||
           this.container.contains(document.getSelection()?.anchorNode || null);
 
         this.container.classList.toggle(styles.preview, !isFocused);
 
         if (!isFocused) {
-          this.allSettings.forEach(settings => toggleSettingsDisplay(settings, false));
+          this.allSettings.forEach((settings) =>
+            toggleSettingsDisplay(settings, false)
+          );
         }
       };
 
-      document.addEventListener('selectionchange', handleFocusChange);
+      document.addEventListener("selectionchange", handleFocusChange);
 
       const observer = new MutationObserver(handleFocusChange);
 
       observer.observe(block, {
-        attributeFilter: ['class'],
-        attributes: true
+        attributeFilter: ["class"],
+        attributes: true,
       });
     });
 

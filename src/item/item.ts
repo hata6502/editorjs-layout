@@ -1,34 +1,34 @@
-import { API } from '@editorjs/editorjs';
-import styles from './item.css';
-import { GridConfig } from '../Grid';
-import { moveToNext, moveToPrev } from '../move';
-import { createItemSettings, toggleSettingsDisplay } from '../settings';
+import { API } from "@editorjs/editorjs";
+import styles from "./item.css";
+import { GridConfig } from "../Grid";
+import { moveToNext, moveToPrev } from "../move";
+import { createItemSettings, toggleSettingsDisplay } from "../settings";
 
 export interface ItemData extends CSSStyleDeclaration {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   itemContent: Partial<any>;
-  type: 'item';
+  type: "item";
 }
 
 export const createItem = (
   allSettings: readonly HTMLDivElement[],
   dispatchAllSettings: (action: HTMLDivElement) => void,
   api: API,
-  createItemContent: GridConfig['createItemContent'],
+  createItemContent: GridConfig["createItemContent"],
   readOnly: boolean,
   options?: {
     data?: Partial<ItemData>;
   }
 ) => {
-  const item = document.createElement('div');
+  const item = document.createElement("div");
 
   item.classList.add(styles.item);
-  item.dataset.type = 'item';
+  item.dataset.type = "item";
 
-  item.style.alignSelf = options?.data?.alignSelf || 'auto';
-  item.style.flexBasis = options?.data?.flexBasis || 'auto';
-  item.style.flexGrow = options?.data?.flexGrow || '0';
-  item.style.flexShrink = options?.data?.flexShrink || '1';
+  item.style.alignSelf = options?.data?.alignSelf || "auto";
+  item.style.flexBasis = options?.data?.flexBasis || "auto";
+  item.style.flexGrow = options?.data?.flexGrow || "0";
+  item.style.flexShrink = options?.data?.flexShrink || "1";
 
   const applyStyles = (extended: Partial<CSSStyleDeclaration>) => {
     const { alignSelf, flexBasis, flexGrow, flexShrink } = item.style;
@@ -37,20 +37,22 @@ export const createItem = (
       alignSelf,
       flexBasis,
       flexGrow,
-      flexShrink
+      flexShrink,
     };
 
-    item.removeAttribute('style');
+    item.removeAttribute("style");
 
     Object.entries(style).forEach(([name, value]) => {
       if (value) {
-        item.style[name as keyof Omit<CSSStyleDeclaration, 'length' | 'parentRule'>] = value;
+        item.style[
+          name as keyof Omit<CSSStyleDeclaration, "length" | "parentRule">
+        ] = value;
       }
     });
 
     item.dataset.extended = Object.keys(extended)
-      .map(name => name.replace(/,/g, ''))
-      .join(',');
+      .map((name) => name.replace(/,/g, ""))
+      .join(",");
   };
 
   const extendedData: Partial<ItemData> = { ...options?.data };
@@ -89,23 +91,25 @@ export const createItem = (
       },
       onMoveToNextClick: () => moveToNext(item),
       onMoveToPrevClick: () => moveToPrev(item),
-      style: item.style
+      style: item.style,
     });
 
-    item.addEventListener('click', ({ clientX, clientY }) => {
+    item.addEventListener("click", ({ clientX, clientY }) => {
       const rect = item.getBoundingClientRect();
 
       const offsetX = clientX - rect.left;
       const offsetY = clientY - rect.top;
 
-      allSettings.forEach(allSetting => toggleSettingsDisplay(allSetting, false));
+      allSettings.forEach((allSetting) =>
+        toggleSettingsDisplay(allSetting, false)
+      );
       toggleSettingsDisplay(
         settings,
         [
-          { distance: Math.abs(offsetX), style: 'left' },
-          { distance: Math.abs(offsetX - item.clientWidth), style: 'right' },
-          { distance: Math.abs(offsetY), style: 'top' },
-          { distance: Math.abs(offsetY - item.clientHeight), style: 'bottom' }
+          { distance: Math.abs(offsetX), style: "left" },
+          { distance: Math.abs(offsetX - item.clientWidth), style: "right" },
+          { distance: Math.abs(offsetY), style: "top" },
+          { distance: Math.abs(offsetY - item.clientHeight), style: "bottom" },
         ].sort((a, b) => a.distance - b.distance)[0].style
       );
     });
@@ -121,21 +125,24 @@ export const createItem = (
 
 export const saveItem = async (
   item: HTMLDivElement,
-  saveItemContent: GridConfig['saveItemContent']
+  saveItemContent: GridConfig["saveItemContent"]
 ): Promise<Partial<ItemData>> => {
   const extended: Partial<CSSStyleDeclaration> = Object.fromEntries(
     item.dataset.extended
-      ?.split(',')
-      .map(name => [name, item.style[name as keyof CSSStyleDeclaration]]) || []
+      ?.split(",")
+      .map((name) => [name, item.style[name as keyof CSSStyleDeclaration]]) ||
+      []
   );
 
   return {
     ...extended,
-    ...(item.style.alignSelf !== 'auto' && { alignSelf: item.style.alignSelf }),
-    ...(item.style.flexBasis !== 'auto' && { flexBasis: item.style.flexBasis }),
-    ...(item.style.flexGrow !== '0' && { flexGrow: item.style.flexGrow }),
-    ...(item.style.flexShrink !== '1' && { flexShrink: item.style.flexShrink }),
-    ...(item.lastElementChild && { itemContent: await saveItemContent(item.lastElementChild) }),
-    type: 'item'
+    ...(item.style.alignSelf !== "auto" && { alignSelf: item.style.alignSelf }),
+    ...(item.style.flexBasis !== "auto" && { flexBasis: item.style.flexBasis }),
+    ...(item.style.flexGrow !== "0" && { flexGrow: item.style.flexGrow }),
+    ...(item.style.flexShrink !== "1" && { flexShrink: item.style.flexShrink }),
+    ...(item.lastElementChild && {
+      itemContent: await saveItemContent(item.lastElementChild),
+    }),
+    type: "item",
   };
 };

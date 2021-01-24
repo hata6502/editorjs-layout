@@ -2,15 +2,14 @@
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
     "declaration": true,
-    "lib": ["DOM", "ESNext"],
+    "lib": ["ESNext", "DOM"],
     "module": "ESNext",
     "moduleResolution": "node",
     "outDir": "dist",
     "pretty": true,
+    "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
     "target": "ES5"
-  },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist"]
+  }
 }
