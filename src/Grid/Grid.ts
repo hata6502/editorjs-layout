@@ -5,7 +5,6 @@ import { ContainerData, createContainer, saveContainer } from "../container";
 import { createItemContent, saveItemContent } from "../itemContent";
 import { toggleSettingsDisplay } from "../settings";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface GridConfig<T = any> extends ToolSettings {
   /** Function for creating DOM element in each item */
   createItemContent: (options?: { data?: Partial<T> }) => Element;

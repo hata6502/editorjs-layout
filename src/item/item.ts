@@ -5,7 +5,6 @@ import { moveToNext, moveToPrev } from "../move";
 import { createItemSettings, toggleSettingsDisplay } from "../settings";
 
 export interface ItemData extends CSSStyleDeclaration {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   itemContent: Partial<any>;
   type: "item";
 }
