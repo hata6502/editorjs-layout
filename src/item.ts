@@ -1,4 +1,7 @@
-import type { LayoutBlockToolConfig } from "./LayoutBlockTool";
+import type {
+  LayoutBlockToolConfig,
+  LayoutBlockToolDispatchData,
+} from "./LayoutBlockTool";
 import { renderItemContent } from "./itemContent";
 import type { LayoutBlockItemContentData } from "./itemContent";
 
@@ -15,11 +18,13 @@ interface ValidatedLayoutBlockItemData extends LayoutBlockItemData {}
 const renderItem = ({
   EditorJS,
   data,
+  dispatchData,
   editorJSConfig,
   itemContentData,
 }: {
   EditorJS: LayoutBlockToolConfig["EditorJS"];
   data: LayoutBlockItemData;
+  dispatchData: LayoutBlockToolDispatchData;
   editorJSConfig: LayoutBlockToolConfig["editorJSConfig"];
   itemContentData: LayoutBlockItemContentData;
 }) => {
@@ -32,7 +37,13 @@ const renderItem = ({
   const editorJSData = itemContentData[data.itemContentId] ?? { blocks: [] };
 
   wrapper.append(
-    renderItemContent({ EditorJS, data: editorJSData, editorJSConfig })
+    renderItemContent({
+      EditorJS,
+      data: editorJSData,
+      dispatchData,
+      editorJSConfig,
+      itemContentId: data.itemContentId,
+    })
   );
 
   return wrapper;

@@ -35,6 +35,18 @@ interface ValidatedLayoutBlockToolData extends LayoutBlockToolData {
   layout?: ValidatedLayoutBlockContainerData;
 }
 
+interface LayoutBlockToolDispatchData {
+  (
+    action: (prevData: {
+      itemContent: LayoutBlockItemContentData;
+      layout: LayoutBlockContainerData;
+    }) => {
+      itemContent: LayoutBlockItemContentData;
+      layout: LayoutBlockContainerData;
+    }
+  ): void;
+}
+
 class LayoutBlockTool implements BlockTool {
   static get shortcut() {
     return "CMD+L";
@@ -117,23 +129,17 @@ class LayoutBlockTool implements BlockTool {
     return true;
   }
 
-  dispatchData({
-    itemContent,
-    layout,
-  }: {
-    itemContent?: LayoutBlockItemContentData;
-    layout?: LayoutBlockContainerData;
-  }) {
-    if (itemContent) {
-      this.#itemContent = itemContent;
-    }
+  #dispatchData: LayoutBlockToolDispatchData = (action) => {
+    const data = action({
+      itemContent: this.#itemContent,
+      layout: this.#layout,
+    });
 
-    if (layout) {
-      this.#layout = layout;
-    }
+    this.#itemContent = data.itemContent;
+    this.#layout = data.layout;
 
     this.renderWrapper();
-  }
+  };
 
   renderWrapper() {
     this.#wrapper.innerHTML = "";
@@ -142,6 +148,7 @@ class LayoutBlockTool implements BlockTool {
       renderContainer({
         EditorJS: this.#config.EditorJS,
         data: this.#layout,
+        dispatchData: this.#dispatchData,
         editorJSConfig: this.#config.editorJSConfig,
         itemContentData: this.#itemContent,
       })
@@ -153,5 +160,6 @@ export { LayoutBlockTool };
 export type {
   LayoutBlockToolConfig,
   LayoutBlockToolData,
+  LayoutBlockToolDispatchData,
   ValidatedLayoutBlockToolData,
 };
