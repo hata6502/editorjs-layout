@@ -1,7 +1,5 @@
 <!-- markdownlint-disable first-line-h1 -->
 
-Work in progress
-
 <h1 align="center">Welcome to editorjs-layout 👋</h1>
 <p>
   <a href="https://www.npmjs.com/package/editorjs-layout" target="_blank">
@@ -19,7 +17,7 @@ Work in progress
 
 ### ✨ [Demo](https://hata6502.github.io/editorjs-layout/)
 
-![demo](https://user-images.githubusercontent.com/7702653/77813863-6c9dd880-70ef-11ea-80da-9c5f74d2053f.gif)
+![demo](https://user-images.githubusercontent.com/7702653/105721139-97eb9100-5f67-11eb-8dca-dd4d89314377.gif)
 
 ## Install
 
