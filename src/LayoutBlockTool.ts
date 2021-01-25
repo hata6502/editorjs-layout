@@ -20,7 +20,8 @@ interface LayoutBlockToolConfig {
     EditorConfig,
     "holder" | "data" | "minHeight" | "readOnly"
   >;
-  enableLayoutEditing: boolean;
+  /** Reserved flag for the future */
+  enableLayoutEditing: false;
   enableLayoutSaving: boolean;
   initialData: ValidatedLayoutBlockToolData;
 }
