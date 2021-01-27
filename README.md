@@ -46,6 +46,11 @@ Copied block data by `ctrl+c` are not [validated](https://editorjs.io/blockapi#m
 So copied block data and output block data may be different.
 Please see also [this comment](https://github.com/codex-team/editor.js/issues/1280#issuecomment-706482368).
 
+## &lt;dialog&gt; polyfill
+
+editorjs-layout uses `<dialog>` element.
+[GoogleChrome/dialog-polyfill](https://github.com/GoogleChrome/dialog-polyfill) can be used to improve the browser compatibility.
+
 ## Author
 
 <img alt="Tomoyuki Hata" src="https://avatars.githubusercontent.com/hata6502" width="48" /> **Tomoyuki Hata <hato6502@gmail.com>**
