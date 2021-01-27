@@ -51,6 +51,24 @@ Please see also [this comment](https://github.com/codex-team/editor.js/issues/12
 editorjs-layout uses `<dialog>` element.
 [GoogleChrome/dialog-polyfill](https://github.com/GoogleChrome/dialog-polyfill) can be used to improve the browser compatibility.
 
+## Build
+
+```sh
+yarn webpack
+```
+
+## Format
+
+```sh
+yarn fix
+```
+
+## Run tests
+
+```sh
+yarn test
+```
+
 ## Author
 
 <img alt="Tomoyuki Hata" src="https://avatars.githubusercontent.com/hata6502" width="48" /> **Tomoyuki Hata <hato6502@gmail.com>**
