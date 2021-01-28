@@ -16,6 +16,8 @@ const createDialog = ({
   const dialog = document.createElement("dialog");
 
   dialog.style.maxWidth = "960px";
+  // Make be not able to click inner
+  dialog.style.padding = "0";
   dialog.style.top = "32px";
   dialog.style.width = "calc(100% - 64px)";
 
@@ -32,11 +34,22 @@ const createDialog = ({
     data,
   });
 
+  const handleDialogClick = (event: MouseEvent) => {
+    if (!(event.target instanceof Node) || !event.target.isEqualNode(dialog)) {
+      return;
+    }
+
+    dialog.close();
+  };
+
+  dialog.addEventListener("click", handleDialogClick);
+
   const handleDialogClose = async () => {
     const editorJSData = await editorJS.save();
 
     editorJS.destroy();
 
+    dialog.removeEventListener("click", handleDialogClick);
     dialog.removeEventListener("close", handleDialogClose);
     dialog.remove();
 
