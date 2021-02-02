@@ -21,8 +21,16 @@
 
 ## Install
 
+### Install via yarn
+
 ```sh
 yarn add editorjs-layout
+```
+
+### Load from CDN
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/editorjs-layout@latest"></script>
 ```
 
 ## Usage
