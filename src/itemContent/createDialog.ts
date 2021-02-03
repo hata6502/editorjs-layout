@@ -21,7 +21,6 @@ const createDialog = ({
   dialog.style.maxWidth = "960px";
   // Make be not able to click inner
   dialog.style.padding = "0";
-  dialog.style.top = "32px";
   dialog.style.width = "calc(100% - 64px)";
 
   const editorJSHolder = document.createElement("div");
