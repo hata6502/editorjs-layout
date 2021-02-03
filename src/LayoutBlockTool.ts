@@ -49,6 +49,10 @@ interface LayoutBlockToolDispatchData {
 }
 
 class LayoutBlockTool implements BlockTool {
+  static get isReadOnlySupported() {
+    return true;
+  }
+
   static get shortcut() {
     return "CMD+L";
   }
@@ -68,6 +72,7 @@ class LayoutBlockTool implements BlockTool {
   }
 
   #config!: LayoutBlockToolConfig;
+  #readOnly: boolean;
   #wrapper: HTMLDivElement;
 
   #itemContent: LayoutBlockItemContentData;
@@ -76,7 +81,9 @@ class LayoutBlockTool implements BlockTool {
   constructor({
     config,
     data,
+    readOnly,
   }: BlockToolConstructorOptions<LayoutBlockToolData, LayoutBlockToolConfig>) {
+    this.#readOnly = readOnly;
     this.#wrapper = document.createElement("div");
 
     this.#itemContent = {};
@@ -152,6 +159,7 @@ class LayoutBlockTool implements BlockTool {
         dispatchData: this.#dispatchData,
         editorJSConfig: this.#config.editorJSConfig,
         itemContentData: this.#itemContent,
+        readOnly: this.#readOnly,
       })
     );
   }

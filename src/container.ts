@@ -22,19 +22,23 @@ interface ValidatedLayoutBlockContainerData extends LayoutBlockContainerData {
   )[];
 }
 
-const renderContainer = ({
-  EditorJS,
-  data,
-  dispatchData,
-  editorJSConfig,
-  itemContentData,
-}: {
+interface RenderContext {
   EditorJS: LayoutBlockToolConfig["EditorJS"];
-  data: LayoutBlockContainerData;
   dispatchData: LayoutBlockToolDispatchData;
   editorJSConfig: LayoutBlockToolConfig["editorJSConfig"];
+  readOnly: boolean;
+}
+
+interface RenderContainerProps extends RenderContext {
+  data: LayoutBlockContainerData;
   itemContentData: LayoutBlockItemContentData;
-}) => {
+}
+
+const renderContainer = ({
+  data,
+  itemContentData,
+  ...context
+}: RenderContainerProps) => {
   const wrapper = document.createElement("div");
 
   wrapper.id = data.id;
@@ -47,10 +51,8 @@ const renderContainer = ({
     switch (child.type) {
       case "container": {
         childElement = renderContainer({
-          EditorJS,
+          ...context,
           data: child,
-          dispatchData,
-          editorJSConfig,
           itemContentData,
         });
 
@@ -59,10 +61,8 @@ const renderContainer = ({
 
       case "item": {
         childElement = renderItem({
-          EditorJS,
+          ...context,
           data: child,
-          dispatchData,
-          editorJSConfig,
           itemContentData,
         });
 
@@ -83,4 +83,9 @@ const renderContainer = ({
 };
 
 export { renderContainer };
-export type { LayoutBlockContainerData, ValidatedLayoutBlockContainerData };
+export type {
+  LayoutBlockContainerData,
+  RenderContainerProps,
+  RenderContext,
+  ValidatedLayoutBlockContainerData,
+};

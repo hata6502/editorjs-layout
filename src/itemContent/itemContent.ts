@@ -1,9 +1,6 @@
 import type { OutputData } from "@editorjs/editorjs";
 import { v4 as uuidv4 } from "uuid";
-import type {
-  LayoutBlockToolConfig,
-  LayoutBlockToolDispatchData,
-} from "../LayoutBlockTool";
+import type { RenderContext } from "../container";
 import { createDialog } from "./createDialog";
 
 interface LayoutBlockItemContentData {
@@ -13,45 +10,48 @@ interface LayoutBlockItemContentData {
 interface ValidatedLayoutBlockItemContentData
   extends LayoutBlockItemContentData {}
 
+interface RenderItemContentProps extends RenderContext {
+  data: OutputData;
+  itemContentId: string;
+}
+
 const renderItemContent = ({
   EditorJS,
   data,
   dispatchData,
   editorJSConfig,
   itemContentId,
-}: {
-  EditorJS: LayoutBlockToolConfig["EditorJS"];
-  data: OutputData;
-  dispatchData: LayoutBlockToolDispatchData;
-  editorJSConfig: LayoutBlockToolConfig["editorJSConfig"];
-  itemContentId: string;
-}) => {
+  readOnly,
+}: RenderItemContentProps) => {
   const editorJSHolderID = uuidv4();
   const wrapper = document.createElement("div");
 
   wrapper.id = editorJSHolderID;
-  wrapper.style.cursor = "pointer";
 
-  wrapper.addEventListener("click", () => {
-    const dialog = createDialog({
-      EditorJS,
-      data,
-      editorJSConfig,
-      onClose: async ({ editorJSData }) =>
-        dispatchData(({ itemContent, layout }) => ({
-          itemContent: {
-            ...itemContent,
-            [itemContentId]: {
-              blocks: editorJSData.blocks,
+  if (!readOnly) {
+    wrapper.style.cursor = "pointer";
+
+    wrapper.addEventListener("click", () => {
+      const dialog = createDialog({
+        EditorJS,
+        data,
+        editorJSConfig,
+        onClose: async ({ editorJSData }) =>
+          dispatchData(({ itemContent, layout }) => ({
+            itemContent: {
+              ...itemContent,
+              [itemContentId]: {
+                blocks: editorJSData.blocks,
+              },
             },
-          },
-          layout: layout,
-        })),
-    });
+            layout: layout,
+          })),
+      });
 
-    document.body.append(dialog);
-    dialog.showModal();
-  });
+      document.body.append(dialog);
+      dialog.showModal();
+    });
+  }
 
   new EditorJS({
     ...editorJSConfig,
@@ -65,4 +65,8 @@ const renderItemContent = ({
 };
 
 export { renderItemContent };
-export type { LayoutBlockItemContentData, ValidatedLayoutBlockItemContentData };
+export type {
+  LayoutBlockItemContentData,
+  RenderItemContentProps,
+  ValidatedLayoutBlockItemContentData,
+};

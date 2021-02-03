@@ -1,7 +1,4 @@
-import type {
-  LayoutBlockToolConfig,
-  LayoutBlockToolDispatchData,
-} from "./LayoutBlockTool";
+import type { RenderContext } from "./container";
 import { renderItemContent } from "./itemContent";
 import type { LayoutBlockItemContentData } from "./itemContent";
 
@@ -15,19 +12,12 @@ interface LayoutBlockItemData {
 
 interface ValidatedLayoutBlockItemData extends LayoutBlockItemData {}
 
-const renderItem = ({
-  EditorJS,
-  data,
-  dispatchData,
-  editorJSConfig,
-  itemContentData,
-}: {
-  EditorJS: LayoutBlockToolConfig["EditorJS"];
+interface RenderItemProps extends RenderContext {
   data: LayoutBlockItemData;
-  dispatchData: LayoutBlockToolDispatchData;
-  editorJSConfig: LayoutBlockToolConfig["editorJSConfig"];
   itemContentData: LayoutBlockItemContentData;
-}) => {
+}
+
+const renderItem = ({ data, itemContentData, ...context }: RenderItemProps) => {
   const wrapper = document.createElement("div");
 
   wrapper.id = data.id;
@@ -38,10 +28,8 @@ const renderItem = ({
 
   wrapper.append(
     renderItemContent({
-      EditorJS,
+      ...context,
       data: editorJSData,
-      dispatchData,
-      editorJSConfig,
       itemContentId: data.itemContentId,
     })
   );
@@ -50,4 +38,8 @@ const renderItem = ({
 };
 
 export { renderItem };
-export type { LayoutBlockItemData, ValidatedLayoutBlockItemData };
+export type {
+  LayoutBlockItemData,
+  RenderItemProps,
+  ValidatedLayoutBlockItemData,
+};
