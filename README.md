@@ -15,6 +15,8 @@
 
 > Layout block tool for Editor.js.
 
+Alternative solution: [editorjs-inline](https://github.com/hata6502/editorjs-inline)
+
 ### ✨ [Demo](https://hata6502.github.io/editorjs-layout/)
 
 ![demo](https://user-images.githubusercontent.com/7702653/105721139-97eb9100-5f67-11eb-8dca-dd4d89314377.gif)
