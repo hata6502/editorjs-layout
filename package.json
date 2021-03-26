@@ -13,6 +13,10 @@
     "url": "https://github.com/hata6502/editorjs-layout/issues"
   },
   "repository": "https://github.com/hata6502/editorjs-layout",
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/hata6502"
+  },
   "license": "MIT",
   "author": "Tomoyuki Hata <hato6502@gmail.com>",
   "main": "dist/index.js",
