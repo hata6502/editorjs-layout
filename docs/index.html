@@ -2,15 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-
     <title>editorjs-layout</title>
-
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/dialog-polyfill@0.5.6/dist/dialog-polyfill.css"
-      integrity="sha256-hT0ET4tfm+7MyjeBepBgV2N5tOmsAVKcTWhH82jvoaA="
-      crossorigin="anonymous"
-    />
   </head>
 
   <body>
@@ -162,9 +154,8 @@
       document.querySelector("#button").addEventListener("click", async () => {
         const outputData = await editorJS.save();
 
-        document.querySelector("#output-data").textContent = JSON.stringify(
-          outputData
-        );
+        document.querySelector("#output-data").textContent =
+          JSON.stringify(outputData);
       });
 
       new EditorJS({

@@ -49,6 +49,7 @@ const renderItemContent = ({
       });
 
       document.body.append(dialog);
+      // @ts-expect-error
       dialog.showModal();
     });
   }
