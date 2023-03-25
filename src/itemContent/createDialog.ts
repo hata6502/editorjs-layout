@@ -38,7 +38,6 @@ const createDialog = ({
       return;
     }
 
-    // @ts-expect-error
     dialog.close();
   };
 
