@@ -28,9 +28,9 @@ const renderItemContent = ({
 
   wrapper.id = editorJSHolderID;
 
-  if (!readOnly) {
-    wrapper.style.cursor = "pointer";
-
+  if (readOnly) {
+    wrapper.classList.add("read-only");
+  } else {
     wrapper.addEventListener("click", () => {
       const dialog = createDialog({
         EditorJS,
@@ -60,6 +60,22 @@ const renderItemContent = ({
     minHeight: 0,
     readOnly: true,
   });
+
+  const styleElement = document.createElement("style");
+  styleElement.textContent = `
+    #${CSS.escape(editorJSHolderID)} {
+      cursor: pointer;
+    }
+
+    #${CSS.escape(editorJSHolderID)}.read-only {
+      cursor: unset;
+    }
+
+    #${CSS.escape(editorJSHolderID)} .codex-editor__loader {
+      display: none;
+    }
+  `;
+  wrapper.append(styleElement);
 
   return wrapper;
 };
