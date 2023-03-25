@@ -1,19 +1,6 @@
-<!-- markdownlint-disable first-line-h1 -->
+# editorjs-layout
 
-<h1 align="center">Welcome to editorjs-layout 👋</h1>
-<p>
-  <a href="https://www.npmjs.com/package/editorjs-layout" target="_blank">
-    <img alt="Version" src="https://img.shields.io/npm/v/editorjs-layout.svg">
-  </a>
-  <a href="https://github.com/hata6502/editorjs-layout/blob/main/LICENSE" target="_blank">
-    <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" />
-  </a>
-  <a href="https://twitter.com/hata6502" target="_blank">
-    <img alt="Twitter: hata6502" src="https://img.shields.io/twitter/follow/hata6502.svg?style=social" />
-  </a>
-</p>
-
-> Layout block tool for Editor.js.
+Layout block tool for Editor.js.
 
 Alternative solution: [editorjs-inline](https://github.com/hata6502/editorjs-inline)
 
@@ -23,13 +10,11 @@ Alternative solution: [editorjs-inline](https://github.com/hata6502/editorjs-inl
 
 ## Install
 
-### Install via yarn
-
-```sh
-yarn add editorjs-layout
+```bash
+$ npm i editorjs-layout
 ```
 
-### Load from CDN
+or
 
 ```html
 <script src="https://cdn.jsdelivr.net/npm/editorjs-layout@latest"></script>
@@ -56,44 +41,8 @@ Copied block data by `ctrl+c` are not [validated](https://editorjs.io/blockapi#m
 So copied block data and output block data may be different.
 Please see also [this comment](https://github.com/codex-team/editor.js/issues/1280#issuecomment-706482368).
 
-## Build
-
-```sh
-yarn webpack
-```
-
-## Format
-
-```sh
-yarn fix
-```
-
-## Run tests
-
-```sh
-yarn test
-```
-
-## Author
-
-<img alt="Tomoyuki Hata" src="https://avatars.githubusercontent.com/hata6502" width="48" /> **Tomoyuki Hata <hato6502@gmail.com>**
-
-## 🤝 Contributing
-
-Contributions, issues and feature requests are welcome!<br />Feel free to check [issues page](https://github.com/hata6502/editorjs-layout/issues).
-
-## Show your support
-
-Give a ⭐️ if this project helped you!
-
 ## Disclaimer
 
 The following creations are included in this product:
 
 - [ionic-team/ionicons](https://github.com/ionic-team/ionicons/blob/master/LICENSE)
-
-Please see also [DISCLAIMER.md](https://github.com/hata6502/editorjs-layout/blob/main/DISCLAIMER.md).
-
----
-
-_This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_

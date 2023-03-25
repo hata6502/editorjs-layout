@@ -24,12 +24,8 @@
     "dist"
   ],
   "scripts": {
-    "check-license": "license-checker --excludePackages 'css-select@1.2.0;dictionary-en@3.0.0;domutils@1.5.1;optimist@0.6.1;tiny-segmenter@0.2.0;trim@0.0.1;union@0.5.0;unorm@1.6.0;zlibjs@0.2.0' --excludePrivatePackages --onlyAllow 'Apache-2.0;BSD;BSD-2-Clause;BSD-3-Clause;CC0-1.0;CC-BY-3.0;CC-BY-4.0;ISC;MIT;Public Domain;Unlicense;WTFPL' --production --unknown > /dev/null",
-    "fix": "prettier --write .",
-    "generate-disclaimer": "yarn licenses generate-disclaimer --ignore-platform > DISCLAIMER.md",
-    "semantic-release": "semantic-release",
-    "test": "yarn check-license && prettier --check . && tsc --noEmit",
-    "webpack": "webpack"
+    "build": "webpack",
+    "test": "tsc --noEmit"
   },
   "dependencies": {
     "@editorjs/editorjs": "^2.19.1"
@@ -37,9 +33,6 @@
   "devDependencies": {
     "@types/uuid": "^8.3.0",
     "ionicons": "^5.3.0",
-    "license-checker": "^25.0.1",
-    "prettier": "^2.2.1",
-    "semantic-release": "^17.4.2",
     "ts-loader": "^8.0.14",
     "typescript": "^4.1.3",
     "uuid": "^8.3.2",
