@@ -89,17 +89,19 @@ const renderContainer = ({
         var itemContentId = !child.itemContentId  ? "" : child.itemContentId;
         childElement.setAttribute("item-content-id", itemContentId);
 
-        var class_name_thing  = document.createElement("input");
+        var input  = document.createElement("input");
         var label  = document.createElement("label");
-        label.innerText ="Child Container class";
-        class_name_thing.setAttribute("type", "text");
-        class_name_thing.classList.add("class_container");
+        label.innerText = "Child Container class";
+        input.setAttribute("type", "text");
 
-        var button  = document.createElement("button");
-        button.innerHTML  = "Remove container";
+        var button = document.createElement("button");
+        button.innerHTML = "Remove container";
 
         button.addEventListener("click", function(e){
           items;
+          itemContentData;
+          childElement;
+
           var target = (e.currentTarget as HTMLInputElement);
 
           if (!target.parentElement) return;
@@ -112,26 +114,24 @@ const renderContainer = ({
           var index = nodes.indexOf(target.parentElement.parentElement);
 
           items.splice(index,1);
-          itemContentData;
 
           delete itemContentData[itemContentId];
-          childElement;
 
           childElement.remove();
 
         });
 
-        class_name_thing.value = child.className;
-        class_name_thing.addEventListener("keydown", (e) => {
+        input.value = child.className;
+        input.addEventListener("keydown", (e) => {
 
             child.className = child.className + e.key;
         });
 
         if(child.className != undefined){
-            class_name_thing.value = child.className;
+            input.value = child.className;
         }
 
-        label.append(class_name_thing);
+        label.append(input);
         childElement.prepend(label);
         label.append(button);
 

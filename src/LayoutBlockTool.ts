@@ -132,52 +132,30 @@ class LayoutBlockTool implements BlockTool {
     var _wrapper = this.#wrapper;
     var _dispatch = this.#dispatchData;
     var _itemContent = this.#itemContent;
-
     var _this = this;
-    
-
 
     const settings = [
       {
-        name: 'add column',
+        name: 'Add column',
         icon: `<svg fill="#000000" width="20" height="20" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg"><title>plus-frame</title><path d="M0 26.016q0 2.496 1.76 4.224t4.256 1.76h20q2.464 0 4.224-1.76t1.76-4.224v-20q0-2.496-1.76-4.256t-4.224-1.76h-20q-2.496 0-4.256 1.76t-1.76 4.256v20zM4 26.016v-20q0-0.832 0.576-1.408t1.44-0.608h20q0.8 0 1.408 0.608t0.576 1.408v20q0 0.832-0.576 1.408t-1.408 0.576h-20q-0.832 0-1.44-0.576t-0.576-1.408zM8 16q0 0.832 0.576 1.44t1.44 0.576h4v4q0 0.832 0.576 1.408t1.408 0.576 1.408-0.576 0.608-1.408v-4h4q0.8 0 1.408-0.576t0.576-1.44-0.576-1.408-1.408-0.576h-4v-4q0-0.832-0.608-1.408t-1.408-0.608-1.408 0.608-0.576 1.408v4h-4q-0.832 0-1.44 0.576t-0.576 1.408z"></path></svg>`
         ,button_click: function(){
           _layout;
           _dispatch;
           _this;
           
-          //useless
-          var count =  _layout.children != undefined &&  _layout.children.length > 0 ?  _layout.children.length + 1 : 1;
-          
           var id =  crypto.randomUUID();
           _layout.children.push({
-                type: "item",
-                id: "",
-                className: "",
-                style: "",
-                itemContentId: id});
+            type: "item",
+            id: "",
+            className: "",
+            style: "",
+            itemContentId: id});
 
-              _itemContent[id] = JSON.parse('{"blocks":[{"type":"paragraph","data":{"text":"Start typing here"}}]}');
+          _itemContent[id] = JSON.parse('{"blocks":[{"type":"paragraph","data":{"text":"Start typing here"}}]}');
 
-                _this.rerender();
+          _this.rerender();
 
 
-        }
-      },
-      {
-        name: 'stretched',
-        icon: `<svg width="17" height="10" viewBox="0 0 17 10" xmlns="http://www.w3.org/2000/svg"><path d="M13.568 5.925H4.056l1.703 1.703a1.125 1.125 0 0 1-1.59 1.591L.962 6.014A1.069 1.069 0 0 1 .588 4.26L4.38.469a1.069 1.069 0 0 1 1.512 1.511L4.084 3.787h9.606l-1.85-1.85a1.069 1.069 0 1 1 1.512-1.51l3.792 3.791a1.069 1.069 0 0 1-.475 1.788L13.514 9.16a1.125 1.125 0 0 1-1.59-1.591l1.644-1.644z"/></svg>`
-        ,button_click: function(){
-
-          alert("stretched");
-        }
-      },
-      {
-        name: 'withBackground',
-        icon: `<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10.043 8.265l3.183-3.183h-2.924L4.75 10.636v2.923l4.15-4.15v2.351l-2.158 2.159H8.9v2.137H4.7c-1.215 0-2.2-.936-2.2-2.09v-8.93c0-1.154.985-2.09 2.2-2.09h10.663l.033-.033.034.034c1.178.04 2.12.96 2.12 2.089v3.23H15.3V5.359l-2.906 2.906h-2.35zM7.951 5.082H4.75v3.201l3.201-3.2zm5.099 7.078v3.04h4.15v-3.04h-4.15zm-1.1-2.137h6.35c.635 0 1.15.489 1.15 1.092v5.13c0 .603-.515 1.092-1.15 1.092h-6.35c-.635 0-1.15-.489-1.15-1.092v-5.13c0-.603.515-1.092 1.15-1.092z"/></svg>`,  
-        button_click: function(){
-
-          alert("withBackground");
         }
       }
     ];
@@ -233,7 +211,7 @@ class LayoutBlockTool implements BlockTool {
     this.#wrapper.innerHTML = "";
 
     var label  = document.createElement("label");
-    label.innerText ="Container class";
+    label.innerText = "Container class";
 
     this.#wrapper_class.setAttribute("type", "text");
     this.#wrapper_class.classList.add("wrapper_class");
