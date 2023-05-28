@@ -25,7 +25,8 @@
   ],
   "scripts": {
     "build": "webpack",
-    "test": "tsc --noEmit"
+    "test": "tsc --noEmit",
+    "build:dev": "webpack --mode development --watch"
   },
   "dependencies": {
     "@editorjs/editorjs": "^2.19.1"
