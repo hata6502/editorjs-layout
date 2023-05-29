@@ -75,13 +75,14 @@ class LayoutBlockTool implements BlockTool {
   #readOnly: boolean;
   #wrapper: HTMLDivElement;
   #wrapper_class: HTMLInputElement;
-
+  #api : any;
   #itemContent: LayoutBlockItemContentData;
   #layout: LayoutBlockContainerData;
 
   constructor({
     config,
     data,
+    api,
     readOnly,
   }: BlockToolConstructorOptions<LayoutBlockToolData, LayoutBlockToolConfig>) {
     this.#readOnly = readOnly;
@@ -89,7 +90,7 @@ class LayoutBlockTool implements BlockTool {
     this.#wrapper_class = document.createElement("input");
 
     this.#itemContent = {};
-
+    this.#api = api;
     this.#layout = {
       type: "container",
       id: "",
@@ -133,6 +134,7 @@ class LayoutBlockTool implements BlockTool {
     var _dispatch = this.#dispatchData;
     var _itemContent = this.#itemContent;
     var _this = this;
+    var _api = this.#api;
 
     const settings = [
       {
@@ -154,7 +156,7 @@ class LayoutBlockTool implements BlockTool {
           _itemContent[id] = JSON.parse('{"blocks":[{"type":"paragraph","data":{"text":"Start typing here"}}]}');
 
           _this.rerender();
-
+          _api.toolbar.close();
 
         }
       }
@@ -171,6 +173,7 @@ class LayoutBlockTool implements BlockTool {
 
       button.addEventListener('click', () => {
         tune.button_click();
+        return true;
       });
 
     });
