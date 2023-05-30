@@ -1,4 +1,3 @@
-
 require('./index.css').toString();
 import type EditorJS from "@editorjs/editorjs";
 import type {
@@ -92,6 +91,7 @@ class LayoutBlockTool implements BlockTool {
             style: "",
             children: [],
         };
+
         // Filter undefined and empty object.
         // See also: https://github.com/codex-team/editor.js/issues/1432
         if (config && "EditorJS" in config) {
@@ -137,7 +137,7 @@ class LayoutBlockTool implements BlockTool {
                     itemContentId: id
                 });
                 _itemContent[id] = JSON.parse('{"blocks":[{"type":"paragraph","data":{"text":"Start typing here"}}]}');
-                _this.rerender();
+                _this.render();
                 _api.toolbar.close();
             }
         }];
@@ -173,9 +173,6 @@ class LayoutBlockTool implements BlockTool {
         this.#layout = data.layout;
         this.renderWrapper();
     };
-    rerender() {
-        this.renderWrapper();
-    }
     renderWrapper() {
         this.#wrapper.innerHTML = "";
         var label = document.createElement("label");
@@ -185,6 +182,7 @@ class LayoutBlockTool implements BlockTool {
         this.#wrapper_class.classList.add("wrapper_class");
         label.append(this.#wrapper_class);
         this.#wrapper.append(label);
+
         this.#wrapper.append(
             renderContainer({
                 EditorJS: this.#config.EditorJS,
