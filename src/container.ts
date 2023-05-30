@@ -49,6 +49,34 @@ const renderContainer = ({
     wrapper.id = data.id;
     wrapper.className = data.className;
     wrapper.style.cssText = data.style;
+
+
+   wrapper_class.addEventListener("keyup", (e) => {
+   
+        wrapper;
+        data;
+
+        if (e.key.toLowerCase() == "meta" || e.altKey) {
+            return;
+        }
+        e = (e as KeyboardEvent);
+        if (!e.currentTarget) return;
+        var currentTarget = (e.currentTarget as HTMLInputElement);
+        var old_value = data.className;
+        data.className = currentTarget.value;
+        if (wrapper.classList.contains(old_value)) {
+            if (currentTarget.value.length == 0) {
+                wrapper.classList.remove(old_value);
+            } else {
+                wrapper.classList.replace(old_value, data.className);
+            }
+        } else {
+            wrapper.classList.add(data.className);
+        }
+    });
+
+
+
     var items = data.children;
     if (wrapper_class.value != undefined && wrapper_class.value) {
         wrapper.className = wrapper_class.value;

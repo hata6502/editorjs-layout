@@ -183,28 +183,6 @@ class LayoutBlockTool implements BlockTool {
         this.#wrapper_class.classList.add("cdx-input");
         this.#wrapper_class.setAttribute("type", "text");
         this.#wrapper_class.classList.add("wrapper_class");
-        this.#wrapper_class.addEventListener("keyup", (e) => {
-            this.#wrapper;
-            this.#itemContent;
-            this.#layout;
-            if (e.key.toLowerCase() == "meta" || e.altKey) {
-                return;
-            }
-            e = (e as KeyboardEvent);
-            if (!e.currentTarget) return;
-            var currentTarget = (e.currentTarget as HTMLInputElement);
-            var old_value = this.#layout.className;
-            this.#layout.className = currentTarget.value;
-            if (this.#wrapper.classList.contains(old_value)) {
-                if (currentTarget.value.length == 0) {
-                    this.#wrapper.classList.remove(old_value);
-                } else {
-                    this.#wrapper.classList.replace(old_value, this.#layout.className);
-                }
-            } else {
-                this.#wrapper.classList.add(this.#layout.className);
-            }
-        });
         label.append(this.#wrapper_class);
         this.#wrapper.append(label);
         this.#wrapper.append(
