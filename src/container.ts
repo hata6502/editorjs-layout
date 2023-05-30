@@ -1,91 +1,183 @@
-import { EditorJSLayoutError } from "./EditorJSLayoutError";
+import {
+    EditorJSLayoutError
+} from "./EditorJSLayoutError";
 import type {
-  LayoutBlockToolConfig,
-  LayoutBlockToolDispatchData,
+    LayoutBlockToolConfig,
+    LayoutBlockToolDispatchData,
 } from "./LayoutBlockTool";
-import { renderItem } from "./item";
-import type { LayoutBlockItemData, ValidatedLayoutBlockItemData } from "./item";
-import type { LayoutBlockItemContentData } from "./itemContent";
-
+import {
+    renderItem
+} from "./item";
+import type {
+    LayoutBlockItemData,
+    ValidatedLayoutBlockItemData
+} from "./item";
+import type {
+    LayoutBlockItemContentData
+} from "./itemContent";
 interface LayoutBlockContainerData {
-  type: "container";
-  id: Element["id"];
-  className: Element["className"];
-  style: CSSStyleDeclaration["cssText"];
-  children: (LayoutBlockContainerData | LayoutBlockItemData)[];
+    type: "container";
+    id: Element["id"];
+    className: Element["className"];
+    style: CSSStyleDeclaration["cssText"];
+    children: (LayoutBlockContainerData | LayoutBlockItemData)[];
 }
-
 interface ValidatedLayoutBlockContainerData extends LayoutBlockContainerData {
-  children: (
-    | ValidatedLayoutBlockContainerData
-    | ValidatedLayoutBlockItemData
-  )[];
+    children: ( |
+        ValidatedLayoutBlockContainerData |
+        ValidatedLayoutBlockItemData
+    )[];
 }
-
 interface RenderContext {
-  EditorJS: LayoutBlockToolConfig["EditorJS"];
-  dispatchData: LayoutBlockToolDispatchData;
-  editorJSConfig: LayoutBlockToolConfig["editorJSConfig"];
-  readOnly: boolean;
+    EditorJS: LayoutBlockToolConfig["EditorJS"];
+    dispatchData: LayoutBlockToolDispatchData;
+    editorJSConfig: LayoutBlockToolConfig["editorJSConfig"];
+    readOnly: boolean;
 }
-
 interface RenderContainerProps extends RenderContext {
-  data: LayoutBlockContainerData;
-  itemContentData: LayoutBlockItemContentData;
+    data: LayoutBlockContainerData;
+    wrapper_class: HTMLInputElement;
+    itemContentData: LayoutBlockItemContentData;
 }
-
 const renderContainer = ({
-  data,
-  itemContentData,
-  ...context
+    data,
+    wrapper_class,
+    itemContentData,
+    ...context
 }: RenderContainerProps) => {
-  const wrapper = document.createElement("div");
+    const wrapper = document.createElement("div");
+    wrapper.id = data.id;
+    wrapper.className = data.className;
+    wrapper.style.cssText = data.style;
 
-  wrapper.id = data.id;
-  wrapper.className = data.className;
-  wrapper.style.cssText = data.style;
 
-  data.children.forEach((child) => {
-    let childElement: HTMLDivElement;
+   wrapper_class.addEventListener("keyup", (e) => {
+   
+        wrapper;
+        data;
 
-    switch (child.type) {
-      case "container": {
-        childElement = renderContainer({
-          ...context,
-          data: child,
-          itemContentData,
-        });
+        if (e.key.toLowerCase() == "meta" || e.altKey) {
+            return;
+        }
+        e = (e as KeyboardEvent);
+        if (!e.currentTarget) return;
+        var currentTarget = (e.currentTarget as HTMLInputElement);
+        var old_value = data.className;
+        data.className = currentTarget.value;
+        if (wrapper.classList.contains(old_value)) {
+            if (currentTarget.value.length == 0) {
+                wrapper.classList.remove(old_value);
+            } else {
+                wrapper.classList.replace(old_value, data.className);
+            }
+        } else {
+            wrapper.classList.add(data.className);
+        }
+    });
 
-        break;
-      }
 
-      case "item": {
-        childElement = renderItem({
-          ...context,
-          data: child,
-          itemContentData,
-        });
 
-        break;
-      }
-
-      default: {
-        const exhaustiveCheck: never = child;
-
-        throw new EditorJSLayoutError();
-      }
+    var items = data.children;
+    if (wrapper_class.value != undefined && wrapper_class.value) {
+        wrapper.className = wrapper_class.value;
     }
+    data.children.forEach((child) => {
+        let childElement: HTMLDivElement;
+        switch (child.type) {
+            case "container": {
+                childElement = renderContainer({
+                    wrapper_class,
+                    ...context,
+                    data: child,
+                    itemContentData,
+                });
+                break;
+            }
+            case "item": {
+                childElement = renderItem({
+                    ...context,
+                    data: child,
+                    itemContentData,
+                });
+                break;
+            }
+            default: {
+                const exhaustiveCheck: never = child;
+                throw new EditorJSLayoutError();
+            }
+        }
+        child = (child as ValidatedLayoutBlockItemData);
+        if (!child) return;
+        var itemContentId = !child.itemContentId ? "" : child.itemContentId;
+        childElement.setAttribute("item-content-id", itemContentId);
+        var input = document.createElement("input");
+        var label = document.createElement("label");
+        input.classList.add("cdx-input");
+        input.setAttribute("placeholder", "Child Container class");
+        label.classList.add("d-flex");
+        label.classList.add("margin-x");
 
-    wrapper.append(childElement);
-  });
+        input.setAttribute("type", "text");
+        var button = document.createElement("button");
+        button.innerHTML = "Remove container";
+        button.classList.add("cdx-button");
+        button.classList.add("bold");
+        button.classList.add("margin-left");
 
-  return wrapper;
+        button.addEventListener("click", function(e) {
+            items;
+            itemContentData;
+            childElement;
+            var target = (e.currentTarget as HTMLInputElement);
+            if (!target.parentElement) return;
+            if (!target.parentElement.parentElement) return;
+            if (!target.parentElement.parentElement.parentElement) return;
+            if (!target.parentElement.parentElement.parentElement.children) return;
+            //delete items index
+            var nodes = Array.prototype.slice.call(target.parentElement.parentElement.parentElement.children);
+            var index = nodes.indexOf(target.parentElement.parentElement);
+            items.splice(index, 1);
+            delete itemContentData[itemContentId];
+            childElement.remove();
+        });
+        input.value = child.className;
+        input.addEventListener("keyup", (e) => {
+            childElement;
+            e = (e as KeyboardEvent);
+            if (!e.currentTarget) return;
+            var currentTarget = (e.currentTarget as HTMLInputElement);
+            if (e.key.toLowerCase() == "meta" || e.altKey) {
+                return;
+            }
+            var old_value = child.className;
+            child.className = currentTarget.value;
+            if (childElement.classList.contains(old_value)) {
+                if (currentTarget.value.length == 0) {
+                    childElement.classList.remove(old_value);
+                } else {
+                    childElement.classList.replace(old_value, child.className);
+                }
+            } else {
+                childElement.classList.add(child.className);
+            }
+        });
+        if (child.className != undefined) {
+            input.value = child.className;
+        }
+        label.append(input);
+        childElement.prepend(label);
+        label.append(button);
+        wrapper.append(childElement);
+
+    });
+    return wrapper;
 };
-
-export { renderContainer };
+export {
+    renderContainer
+};
 export type {
-  LayoutBlockContainerData,
-  RenderContainerProps,
-  RenderContext,
-  ValidatedLayoutBlockContainerData,
+    LayoutBlockContainerData,
+    RenderContainerProps,
+    RenderContext,
+    ValidatedLayoutBlockContainerData,
 };

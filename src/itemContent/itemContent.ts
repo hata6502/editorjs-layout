@@ -27,6 +27,7 @@ const renderItemContent = ({
   const wrapper = document.createElement("div");
 
   wrapper.id = editorJSHolderID;
+        wrapper.classList.add("cdx-input");
 
   if (readOnly) {
     wrapper.classList.add("read-only");

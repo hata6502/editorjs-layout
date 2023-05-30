@@ -1,0 +1,17 @@
+.d-flex{
+	display: flex;
+}
+.bold{
+	font-weight: bold;
+}
+
+.margin-x{
+	margin: .5rem 0rem;
+}
+
+.margin-right{
+	margin: 0rem .5rem 0rem 0rem;
+}
+.margin-left{
+	margin: 0rem 0rem 0rem .5rem;
+}
