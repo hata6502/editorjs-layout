@@ -28,10 +28,12 @@ interface LayoutBlockToolConfig {
     initialData: ValidatedLayoutBlockToolData;
 }
 interface LayoutBlockToolData {
+    className: string;
     itemContent: LayoutBlockItemContentData;
     layout ? : LayoutBlockContainerData;
 }
 interface ValidatedLayoutBlockToolData extends LayoutBlockToolData {
+    className: string;
     itemContent: ValidatedLayoutBlockItemContentData;
     layout ? : ValidatedLayoutBlockContainerData;
 }
@@ -156,6 +158,7 @@ class LayoutBlockTool implements BlockTool {
     }
     save(): LayoutBlockToolData {
         return {
+            className:  this.#wrapper_class.value,
             itemContent: this.#itemContent,
             layout: this.#config.enableLayoutSaving ? this.#layout : undefined,
         };
@@ -183,6 +186,7 @@ class LayoutBlockTool implements BlockTool {
         label.append(this.#wrapper_class);
         this.#wrapper.append(label);
 
+        this.#wrapper_class.value = this.#layout.className;
         this.#wrapper.append(
             renderContainer({
                 EditorJS: this.#config.EditorJS,

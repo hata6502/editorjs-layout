@@ -17,14 +17,14 @@ const createDialog = ({
 
   dialog.style.maxWidth = "960px";
   // Make be not able to click inner
-  dialog.style.padding = "0";
   dialog.style.width = "calc(100% - 64px)";
+  dialog.style.height = "100%";
 
-  const editorJSHolder = document.createElement("div");
+  let editorJSHolder = document.createElement("div") as HTMLElement;
   const editorJSHolderID = uuidv4();
 
   editorJSHolder.id = editorJSHolderID;
-
+  editorJSHolder.classList.add("editorjs-layout");
   dialog.append(editorJSHolder);
 
   const editorJS = new EditorJS({
